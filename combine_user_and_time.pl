@@ -5,3 +5,21 @@
 # Replace start numbers with name in a new
 # CSV file
 #
+use LWP::Simple;
+
+#
+# Read the name map CSV, and store the mapping in an
+# associative array in perl.
+$startNumberToNameMap = "https://docs.google.com/spreadsheet/pub?key=0AtQuQf-v5j4JdF90elI3SlhjQ0c3Tm1wNTNSLXduN2c&output=csv";
+@startNumberToNameMapLines = split(/\n/, get($startNumberToNameMap));
+foreach my $line (@startNumberToNameMapLines) {
+    my ($startnummer,$fornavn,$etternavn) = split(/,/, $line);
+    if ($startnummer != "startnummer") {
+        $numberToNameMap{$startnummer} = $fornavn;
+    }
+}
+
+foreach my $startnummer (keys(%numberToNameMap)) {
+    my $navn = $numberToNameMap{$startnummer};
+    print "startnummer: $startnummer  navn: $navn\n";
+}
