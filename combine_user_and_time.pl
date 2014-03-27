@@ -18,8 +18,3 @@ foreach my $line (@startNumberToNameMapLines) {
         $numberToNameMap{$startnummer} = $fornavn;
     }
 }
-
-foreach my $startnummer (keys(%numberToNameMap)) {
-    my $navn = $numberToNameMap{$startnummer};
-    print "startnummer: $startnummer  navn: $navn\n";
-}
