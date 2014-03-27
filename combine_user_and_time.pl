@@ -10,8 +10,8 @@ use LWP::Simple;
 #
 # Read the name map CSV, and store the mapping in an
 # associative array in perl.
-$startNumberToNameMap = "https://docs.google.com/spreadsheet/pub?key=0AtQuQf-v5j4JdF90elI3SlhjQ0c3Tm1wNTNSLXduN2c&output=csv";
-@startNumberToNameMapLines = split(/\n/, get($startNumberToNameMap));
+$startNumberToNameMapCsv = "https://docs.google.com/spreadsheet/pub?key=0AtQuQf-v5j4JdF90elI3SlhjQ0c3Tm1wNTNSLXduN2c&output=csv";
+@startNumberToNameMapLines = split(/\n/, get($startNumberToNameMapCsv));
 foreach my $line (@startNumberToNameMapLines) {
     my ($startnummer,$fornavn,$etternavn) = split(/,/, $line);
     if ($startnummer != "startnummer" && $fornavn) {
