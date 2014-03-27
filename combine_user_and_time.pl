@@ -14,7 +14,7 @@ $startNumberToNameMap = "https://docs.google.com/spreadsheet/pub?key=0AtQuQf-v5j
 @startNumberToNameMapLines = split(/\n/, get($startNumberToNameMap));
 foreach my $line (@startNumberToNameMapLines) {
     my ($startnummer,$fornavn,$etternavn) = split(/,/, $line);
-    if ($startnummer != "startnummer") {
+    if ($startnummer != "startnummer" && $fornavn) {
         $numberToNameMap{$startnummer} = $fornavn;
     }
 }
