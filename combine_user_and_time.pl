@@ -6,6 +6,7 @@
 # CSV file
 #
 use LWP::Simple;
+use POSIX qw{strftime};
 
 #
 # Read the name map CSV, and store the mapping in an
@@ -36,11 +37,15 @@ while(<INPUTFILE>) {
     $line = $_;
     $line =~ s/,/./g; # Replace Norwegian locale decimal commas with US decimal points
     my($seq, $bib, $time, $start, $finish, $split1, $split2, $split3) = unpack($format, $line);
+    my $fractionOfSeconds = $time;
+    $fractionOfSeconds =~ s/^*\.//;
+    my $timeAsMinutesAndSeconds = strftime("\%M:\%S", gmtime($time));
+    $timeAsMinutesAndSecondsAndFraction = $timeAsMinutesAndSeconds.".".$fractionOfSeconds;
     $existingValue = $times{$bib};
     if ($existingValue) {
-        $valueWithTimeAppended = join(",", $existingValue, $time);
+        $valueWithTimeAppended = join(",", $existingValue, $timeAsMinutesAndSecondsAndFraction);
     } else {
-        $valueWithTimeAppended = $time;
+        $valueWithTimeAppended = $timeAsMinutesAndSecondsAndFraction;
     }
     $times{$bib} = $valueWithTimeAppended;
 }
