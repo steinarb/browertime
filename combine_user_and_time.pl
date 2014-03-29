@@ -18,3 +18,48 @@ foreach my $line (@startNumberToNameMapLines) {
         $numberToNameMap{$startnummer} = $fornavn;
     }
 }
+
+
+
+# Read fixed width file containing timings into memory.
+$inputFileName=$ARGV[0];
+
+open(INPUTFILE, "<", $inputFileName);
+# First skip the header lines
+for ($i=0; $i<8; ++$i) {
+    $line = <INPUTFILE>;
+}
+
+# Read the fixed width lines containing timing information
+$format="A8 A14 A15 A15 A15 A15 A15 A";
+while(<INPUTFILE>) {
+    $line = $_;
+    $line =~ s/,/./g; # Replace Norwegian locale decimal commas with US decimal points
+    my($seq, $bib, $time, $start, $finish, $split1, $split2, $split3) = unpack($format, $line);
+    $existingValue = $times{$bib};
+    if ($existingValue) {
+        $valueWithTimeAppended = join(",", $existingValue, $time);
+    } else {
+        $valueWithTimeAppended = $time;
+    }
+    $times{$bib} = $valueWithTimeAppended;
+}
+
+close(INPUTFILE);
+
+$outputFileName=$inputFileName;
+$outputFileName =~ s/.txt$/.csv/;
+open(OUTPUTFILE, ">", $outputFileName);
+
+
+foreach $bib (keys %times) {
+    $name = $numberToNameMap{$bib};
+    if (!$name) {
+        $name = $bib;
+    }
+    $times = $times{$bib};
+    print(OUTPUTFILE "$name,$times\n");
+}
+
+
+close(OUTPUTFILE);
