@@ -53,7 +53,7 @@ $outputFileName =~ s/.txt$/.csv/;
 open(OUTPUTFILE, ">", $outputFileName);
 
 
-foreach $bib (keys %times) {
+foreach $bib (sort {$a <=> $b} keys %times) {
     $name = $numberToNameMap{$bib};
     if (!$name) {
         $name = $bib;
