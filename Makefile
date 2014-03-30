@@ -1,7 +1,13 @@
 #
-# GNU make Makefile for creating PostScript files from SGML files
+# GNU make Makefile for converting fixed width files
+# exported from the Brower clock into CSV files
+# with skier names taking from a google docs 
+# spreadsheet that maps from bibs (start numbers)
+# to names.
 #
-# $Id$
+# The CSV files are also rebuilt when the script
+# or the Makefile itself changes.
+#
 #
 CONVERT_TXT_TO_CSV_SCRIPT=combine_user_and_time.pl
 %.csv : %.txt
@@ -15,4 +21,4 @@ all: $(TARGETS)
 $(TARGETS): $(CONVERT_TXT_TO_CSV_SCRIPT) Makefile 
 
 clean:
-	rm -f $(TARGETS)
+	rm -f "$(TARGETS)"
