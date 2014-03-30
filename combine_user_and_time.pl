@@ -37,15 +37,11 @@ while(<INPUTFILE>) {
     $line = $_;
     $line =~ s/,/./g; # Replace Norwegian locale decimal commas with US decimal points
     my($seq, $bib, $time, $start, $finish, $split1, $split2, $split3) = unpack($format, $line);
-    my $fractionOfSeconds = $time;
-    $fractionOfSeconds =~ s/^.*\.//; # Keep just the numbers after the decimal point
-    my $timeAsMinutesAndSeconds = strftime("\%M:\%S", gmtime($time));
-    $timeAsMinutesAndSecondsAndFraction = $timeAsMinutesAndSeconds.".".$fractionOfSeconds;
     $existingValue = $times{$bib};
     if ($existingValue) {
-        $valueWithTimeAppended = join(",", $existingValue, $timeAsMinutesAndSecondsAndFraction);
+        $valueWithTimeAppended = join(",", $existingValue, $time);
     } else {
-        $valueWithTimeAppended = $timeAsMinutesAndSecondsAndFraction;
+        $valueWithTimeAppended = $time
     }
     $times{$bib} = $valueWithTimeAppended;
 }
