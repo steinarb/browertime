@@ -1,0 +1,30 @@
+* Introduction
+
+The perl script in this repository converts fixed width files from
+[[http://www.browertiming.com/index.php?option=com_content&view=article&id=105:ski-racing&catid=83:xs-timing-system][Brower timers]] into CSV files appropriate for upload into google docs
+spreadsheets.
+
+* Preconditions
+
+The script has been developed on [[https://www.debian.org/][debian]], but should be able to run on
+any command line with the following programs in the PATH:
+ - [[https://www.gnu.org/software/make/][GNU make]]
+ - [[http://www.perl.org/][perl]]
+
+[[http://gnuwin32.sourceforge.net/packages/make.htm][GNU make from GnuWin32]] and [[http://strawberryperl.com/][Strawberry Perl]] should be enough to run
+this script on Windows systems.
+
+* Doing conversion
+
+The steps for doing a conversion, are:
+ 1. Copy the .txt file exported from the Browser clock into the
+    directory containing the script
+ 2. Open a command line window on the directory containing the script
+    (and the .txt file), and give the command:
+    : make
+ 3. Create a new spreadsheet on Google docs
+ 4. In the spreadsheet, choose File->Import
+ 5. In "Import File":
+    1. Click on "Choose..." and browse to the .csv file
+    2. Select "Replace spreadsheet"
+    3. Click on the "Import" button
