@@ -17,7 +17,7 @@ this script on Windows systems.
 * Doing conversion
 
 The steps for doing a conversion, are:
- 1. Copy the .txt file exported from the Browser clock into the
+ 1. Copy the .txt file exported from the Brower clock into the
     directory containing the script
  2. Open a command line window on the directory containing the script
     (and the .txt file), and give the command:
